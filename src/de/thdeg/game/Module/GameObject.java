@@ -1,5 +1,29 @@
 package de.thdeg.game.Module;
 
-public abstract class GameObject {
+import java.awt.*;
+import static java.awt.Color.*;
+
+
+
+public class GameObject {
+    //Instanzattribut
+    private Color color;
+
+    //Constructor
+    GameObject(Color color){
+        this.color = color;
+    }
+
+    //Getter
+    public Color getColor(){
+        return(color);
+    }
+
+    //Setter
+    private void setColor(Color color){
+        this.color = color;
+    }
+
+    //Print-Method
 
 }
