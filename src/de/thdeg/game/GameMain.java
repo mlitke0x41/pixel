@@ -34,6 +34,9 @@ public class GameMain {
         // Now we loop with keyboard input to show the movement of the green dot
         while(true){
             thisKey= InternalLedGameThread.getKeyboard();
+            myImage[(ypos * 48 + xpos) * 3 + 0] = 255;
+            myImage[(ypos * 48 + xpos) * 3 + 1] = 0;
+            myImage[(ypos * 48 + xpos) * 3 + 2] = 0;
             if(thisKey!=-1) {
                 switch (thisKey) {
                     case 0:
