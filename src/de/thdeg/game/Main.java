@@ -1,8 +1,11 @@
 package de.thdeg.game;
 
+import de.thdeg.game.Module.*;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+	Background game = new Background();
+    game.newGame();
     }
 }
