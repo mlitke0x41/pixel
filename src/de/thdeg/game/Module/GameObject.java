@@ -5,7 +5,7 @@ import static java.awt.Color.*;
 
 
 
-public class GameObject {
+public abstract class GameObject {
     //Instanzattribut
     private Color color;
 
