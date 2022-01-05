@@ -1,10 +1,10 @@
 package de.thdeg.game.Module;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Character extends GameFigure {
     //Creating the character object
-    private static final Character character = new Character();
+    private static Character character = null;
 
     //Constructor
     private Character(){
@@ -13,6 +13,9 @@ public class Character extends GameFigure {
 
     //Getter
     public static Character getInstance(){
+        if ( character == null){
+            character = new Character();
+        }
         return character;
     }
 }

@@ -1,8 +1,6 @@
 package de.thdeg.game.Module;
 
-import java.awt.*;
-import static java.awt.Color.*;
-
+import java.awt.Color;
 
 
 public abstract class GameObject {
