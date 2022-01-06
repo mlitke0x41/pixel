@@ -12,7 +12,7 @@ public class Barrier extends GameFigure{
     }
 
     public int getWidth(){
-        return width
+        return width;
     }
 
     private void setWidth(int width){
