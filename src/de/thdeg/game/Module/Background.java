@@ -24,7 +24,7 @@ public class Background extends GameObject{
         return this.image;
     }
 
-    private void setImage(short[] image){
+    private void setImage(short[] image) {
         this.image = image;
     }
 
@@ -44,7 +44,17 @@ public class Background extends GameObject{
         this.barriers = barriers;
     }
 
-    public static void newGame(){
-        InternalLedGameThread.run();
+    public void setBackgroundColor(int a, int b, int c){
+        for (int i=0; i<image.length; i+=3) {
+            image[i] = (short)a;
+            image[i+1] = (short)b;
+            image[i+2] = (short)c;
+        }
     }
+
+    public void newGame(){
+        InternalLedGameThread.run();
+        InternalLedGameThread.showImage(getImage());
+    }
+
 }

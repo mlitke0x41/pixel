@@ -17,9 +17,9 @@ public class GameMain {
         System.out.println("Please wait for three seconds until the LED shows purple color, then you can use the cursor keys in order to move a green dot over the LED display");
         Thread.sleep(3000);
         for(int i=0; i<myImage.length; i+=3){
-            myImage[i+0]=(short)255;
-            myImage[i+1]=(short)0;
-            myImage[i+2]=(short)0;
+            myImage[i]=(short)0;
+            myImage[i+1]=(short)255;
+            myImage[i+2]=(short)100;
         }
         System.out.println("Sending to displayThread");
         InternalLedGameThread.showImage(myImage);
