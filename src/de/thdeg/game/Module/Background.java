@@ -53,7 +53,7 @@ public class Background extends GameObject{
 
     public void setBorder(int a, int b, int c){
         for (int i=0; i<image.length; i+=3) {
-            if(i <= 144 || i >= 3312 || i%144==0) {
+            if(i <= 144 || i >= 3312 || i%144==0 || ((i-141)%144==0)) {
                 image[i] = (short) a;
                 image[i + 1] = (short) b;
                 image[i + 2] = (short) c;
