@@ -1,15 +1,13 @@
 package de.thdeg.game.Module;
 
-import java.awt.*;
-
 public abstract class GameFigure extends GameObject {
     //Instanzattribute
-    private int xpos=0;
-    private int ypos=0;
+    private int xpos;
+    private int ypos;
 
     //Konstruktor
-    protected GameFigure(int xpos, int ypos, Color color){
-        super(color);
+    protected GameFigure(int xpos, int ypos, int[] rgbColor){
+        super(rgbColor);
         this.xpos = xpos;
         this.ypos = ypos;
     }

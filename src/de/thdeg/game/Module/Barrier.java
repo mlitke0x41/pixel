@@ -1,13 +1,11 @@
 package de.thdeg.game.Module;
 
-import java.awt.Color;
-
 public class Barrier extends GameFigure{
 
     private int width;
 
     public Barrier( int xpos, int ypos, int width){
-        super(xpos, ypos, Color.GREEN);
+        super(xpos, ypos, new int[]{0,255,0});
         this.width = width;
     }
 

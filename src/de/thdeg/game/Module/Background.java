@@ -1,19 +1,18 @@
 package de.thdeg.game.Module;
 
 import de.thdeg.game.runtime.InternalLedGameThread;
-import java.awt.Color;
 import java.util.LinkedList;
 
 public class Background extends GameObject{
     //Instanzattribut
-    private short[] image=new short[24*48*3];
+    private short[] image;
     private Character gamer;
     private LinkedList<Barrier> barriers;
 
 
     //Konstruktor
     public Background() {
-        super(Color.WHITE);
+        super(new int[]{255,255,255});
         this.setImage(new short[24*48*3]);
         this.setGamer(Character.getInstance());
         this.setBarriers(new LinkedList<>());

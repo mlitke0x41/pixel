@@ -1,25 +1,23 @@
 package de.thdeg.game.Module;
 
-import java.awt.Color;
-
 
 public abstract class GameObject {
     //Instanzattribut
-    private Color color;
+    private int[] rgbColor;
 
     //Constructor
-    GameObject(Color color){
-        this.color = color;
+    GameObject(int[] rgbColor){
+        this.rgbColor = rgbColor;
     }
 
     //Getter
-    public Color getColor(){
-        return(color);
+    public int[] getRgbColor(){
+        return(rgbColor);
     }
 
     //Setter
-    private void setColor(Color color){
-        this.color = color;
+    private void setColor(int[] rgbColor){
+        this.rgbColor = rgbColor;
     }
 
     //Print-Method

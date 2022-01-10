@@ -8,7 +8,7 @@ public class Character extends GameFigure {
 
     //Constructor
     private Character(){
-        super(0,0, Color.white);
+        super(0,0, new int[]{0,255,0});
     }
 
     //Getter
