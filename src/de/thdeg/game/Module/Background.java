@@ -13,7 +13,7 @@ public class Background extends GameObject{
 
     //Konstruktor
     public Background() {
-        super(Color.BLACK);
+        super(Color.WHITE);
         this.setImage(new short[24*48*3]);
         this.setGamer(Character.getInstance());
         this.setBarriers(new LinkedList<>());
@@ -53,7 +53,6 @@ public class Background extends GameObject{
     }
 
     public void newGame(){
-        InternalLedGameThread.run();
         InternalLedGameThread.showImage(getImage());
     }
 

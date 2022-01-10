@@ -18,8 +18,8 @@ public class GameMain {
         Thread.sleep(3000);
         for(int i=0; i<myImage.length; i+=3){
             myImage[i]=(short)0;
-            myImage[i+1]=(short)255;
-            myImage[i+2]=(short)100;
+            myImage[i+1]=(short)0;
+            myImage[i+2]=(short)0;
         }
         System.out.println("Sending to displayThread");
         InternalLedGameThread.showImage(myImage);
@@ -34,7 +34,7 @@ public class GameMain {
         // Now we loop with keyboard input to show the movement of the green dot
         while(true){
             thisKey= InternalLedGameThread.getKeyboard();
-            myImage[(ypos * 48 + xpos) * 3 + 0] = 255;
+            myImage[(ypos * 48 + xpos) * 3 + 0] = 0;
             myImage[(ypos * 48 + xpos) * 3 + 1] = 0;
             myImage[(ypos * 48 + xpos) * 3 + 2] = 0;
             if(thisKey!=-1) {
