@@ -3,7 +3,7 @@ package de.thdeg.game.Module;
 
 public abstract class GameObject {
     //Instanzattribut
-    private int[] rgbColor;
+    protected int[] rgbColor;
 
     //Constructor
     GameObject(int[] rgbColor){

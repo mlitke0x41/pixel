@@ -25,7 +25,7 @@ public class GameMain {
         InternalLedGameThread.showImage(myImage);
 
         // After 300ms we show the first green dot
-        myImage[0] = 128;
+        myImage[0] = 0;
         myImage[1] = 255;
         myImage[2] = 0;
         Thread.sleep(300);

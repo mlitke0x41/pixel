@@ -35,6 +35,14 @@ public class Background extends GameObject{
         this.gamer = gamer;
     }
 
+    private void placeGamer() throws InterruptedException {
+        image[1656] = (short) gamer.rgbColor[0];
+        image[1657] = (short) gamer.rgbColor[1];
+        image[1658] = (short) gamer.rgbColor[2];
+        Thread.sleep(300);
+        InternalLedGameThread.showImage(image);
+    }
+
     public LinkedList<Barrier> getBarriers(){
         return this.barriers;
     }
@@ -63,10 +71,12 @@ public class Background extends GameObject{
 
     public void newGame() throws InterruptedException {
         InternalLedGameThread.run();
-        setBackgroundColor(255,255,255);
+        setBackgroundColor(rgbColor[0],rgbColor[1],rgbColor[2]);
         setBorder(0,0,0);
         Thread.sleep(1000);
         InternalLedGameThread.showImage(getImage());
+        placeGamer();
+        gamer.move(image);
     }
 
 }
