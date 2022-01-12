@@ -1,6 +1,7 @@
 package de.thdeg.game.Module;
 
 import de.thdeg.game.runtime.InternalLedGameThread;
+import javax.swing.JOptionPane;
 
 public class Character extends GameFigure {
     //Creating the character object
@@ -22,7 +23,7 @@ public class Character extends GameFigure {
     }
 
     public void move(short[] gamer) throws InterruptedException {
-        while(true){
+        while(!isHitten()){
             thisKey= InternalLedGameThread.getKeyboard();
             gamer[(ypos * 48 + xpos) * 3 + 1656] = 255;
             gamer[(ypos * 48 + xpos) * 3 + 1657] = 255;
@@ -49,5 +50,18 @@ public class Character extends GameFigure {
             }
             Thread.sleep(100);
         }
+        JOptionPane.showMessageDialog(null,
+                "DU HAST DEN SPIELBEREICH VERLASSEN!",
+                "VERLOREN!",
+                JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    //Vorerst Berücksichtigung der Umrandung
+    public boolean isHitten(){
+        int position = (ypos * 48 + xpos) * 3 + 1656;
+        if (position <= 141 || position >= 3312 || position%144==0 || ((position-141)%144==0)){
+            return true;
+        } else return false;
     }
 }
