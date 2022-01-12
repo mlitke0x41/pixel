@@ -1,7 +1,7 @@
 package de.thdeg.game;
 
 import de.thdeg.game.Module.*;
-import de.thdeg.game.runtime.InternalLedGameThread;
+
 
 public class Main {
 

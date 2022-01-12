@@ -71,12 +71,15 @@ public class Background extends GameObject{
 
     public void newGame() throws InterruptedException {
         InternalLedGameThread.run();
-        setBackgroundColor(rgbColor[0],rgbColor[1],rgbColor[2]);
-        setBorder(0,0,0);
-        Thread.sleep(1000);
-        InternalLedGameThread.showImage(getImage());
-        placeGamer();
-        gamer.move(image);
+
+        while(true) {
+            setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
+            setBorder(0, 0, 0);
+            Thread.sleep(1000);
+            InternalLedGameThread.showImage(getImage());
+            placeGamer();
+            gamer.move(image);
+        }
     }
 
 }
