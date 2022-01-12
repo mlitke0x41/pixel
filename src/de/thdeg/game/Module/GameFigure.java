@@ -2,8 +2,8 @@ package de.thdeg.game.Module;
 
 public abstract class GameFigure extends GameObject {
     //Instanzattribute
-    private int xpos;
-    private int ypos;
+    protected int xpos;
+    protected int ypos;
 
     //Konstruktor
     protected GameFigure(int xpos, int ypos, int[] rgbColor){
