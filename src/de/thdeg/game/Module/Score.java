@@ -70,17 +70,17 @@ public class Score {
     public int getHighscore(){return Highscore;}
 
     public void printScore(){
-        System.out.println("Punkte der Runde " + Rundenzahl + ": " + getPoints());
+        System.out.println("\nPunkte der Runde " + Rundenzahl + ": \033[0;32m" + getPoints() + "\033[0m");
     }
 
     public void saveHighscore(int score){
         if (score > Highscore) {
             Highscore = score;
-            System.out.println("You made a new Highscore!");
+            System.out.println("\033[0;31mYou made a new Highscore!\033[0m");
         }
     }
 
 
-    public void printHighscores(){System.out.println("Highscore: " + this.Highscore);}
+    public void printHighscores(){System.out.println("Highscore: " + "\033[0;31m" + this.Highscore + "\033[0m");}
 
 }
