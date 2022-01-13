@@ -81,7 +81,12 @@ public class Background extends GameObject{
             Thread.sleep(1000);
             InternalLedGameThread.showImage(getImage());
             placeGamer();
+
+            //Die move()-Methode muss eventuell noch freier gestaltet werden, dass die "Zeichnung" des Hintergrundes
+            //in er Background-Klasse passiert und nicht in der Character-Klasse.
+            //Ansonsten gibt es eventuell ein Problem mit der Zeichnung der Barrier.
             gamer.move(image);
+
             score.setEndTime();
             score.printScore();
             score.saveHighscore(score.getPoints());
