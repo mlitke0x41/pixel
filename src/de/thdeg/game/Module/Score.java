@@ -12,6 +12,7 @@ public class Score {
     private static ArrayList<Score> highscores = new ArrayList<>();
     private static final int MULTIPLICATION = 10;
     private int Rundenzahl = 0;
+    private int Highscore = 0;
 
     public Score (){
         this.setAbbreviation();
@@ -70,10 +71,13 @@ public class Score {
         System.out.println("Punkte der Runde " + Rundenzahl + ": " + getPoints());
     }
 
-    public static String printHighscores(){
-        
-        return null;
+    public void saveHighscore(int score){
+        if (score > Highscore) {
+            Highscore = score;
+            System.out.println("You made a new Highscore!");
+        }
     }
 
+    public void printHighscores(){System.out.println("Highscore: " + this.Highscore);}
 
 }

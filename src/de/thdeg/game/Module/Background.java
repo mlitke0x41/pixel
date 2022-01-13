@@ -84,6 +84,8 @@ public class Background extends GameObject{
             gamer.move(image);
             score.setEndTime();
             score.printScore();
+            score.saveHighscore(score.getPoints());
+            score.printHighscores();
         }
     }
 
