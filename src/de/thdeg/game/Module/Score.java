@@ -11,6 +11,7 @@ public class Score {
     private Timestamp endTime;
     private static ArrayList<Score> highscores = new ArrayList<>();
     private static final int MULTIPLICATION = 10;
+    private int Rundenzahl = 0;
 
     public Score (){
         this.setAbbreviation();
@@ -44,15 +45,16 @@ public class Score {
         return this.startTime;
     }
 
-    private void setStartTime(){
+    protected void setStartTime(){
         this.startTime = new Timestamp(System.currentTimeMillis());
+        Rundenzahl++;
     }
 
     public Timestamp getEndTime(){
         return this.endTime;
     }
 
-    private void setEndTime(){
+    protected void setEndTime(){
         this.endTime = new Timestamp(System.currentTimeMillis());
     }
 
@@ -64,9 +66,8 @@ public class Score {
         return (int) ((this.endTime.getTime() - this.startTime.getTime()) / 1000);
     }
 
-    public String printScore(){
-
-        return null;
+    public void printScore(){
+        System.out.println("Punkte der Runde " + Rundenzahl + ": " + getPoints());
     }
 
     public static String printHighscores(){
