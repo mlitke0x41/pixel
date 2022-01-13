@@ -4,6 +4,8 @@ import de.thdeg.game.runtime.InternalLedGameThread;
 import java.util.LinkedList;
 import de.thdeg.game.Module.Score;
 
+import javax.swing.*;
+
 public class Background extends GameObject{
     //Instanzattribut
     private short[] image;
@@ -70,6 +72,21 @@ public class Background extends GameObject{
         }
     }
 
+    public void deathMessage(){
+        String[] options = {"Restart","Leave"};
+
+        int result = JOptionPane.showOptionDialog(null,
+                "Wanna play again?",
+                "YOU LOOSE!",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                1);
+
+        if (result == JOptionPane.NO_OPTION) System.exit(0);
+    }
+
     public void newGame() throws InterruptedException {
         InternalLedGameThread.run();
         Score score = new Score();
@@ -91,6 +108,7 @@ public class Background extends GameObject{
             score.printScore();
             score.saveHighscore(score.getPoints());
             score.printHighscores();
+            deathMessage();
         }
     }
 

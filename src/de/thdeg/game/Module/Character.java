@@ -42,10 +42,6 @@ public class Character extends GameFigure {
             //noinspection BusyWait
             Thread.sleep(100);
         }
-        JOptionPane.showMessageDialog(null,
-                "DU HAST DEN SPIELBEREICH VERLASSEN!",
-                "VERLOREN!",
-                JOptionPane.WARNING_MESSAGE);
         toStartPosition();
     }
 
