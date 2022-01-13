@@ -67,6 +67,8 @@ public class Score {
         return (int) ((this.endTime.getTime() - this.startTime.getTime()) / 1000);
     }
 
+    public int getHighscore(){return Highscore;}
+
     public void printScore(){
         System.out.println("Punkte der Runde " + Rundenzahl + ": " + getPoints());
     }
@@ -78,7 +80,6 @@ public class Score {
         }
     }
 
-    public int getHighscore(){return Highscore;}
 
     public void printHighscores(){System.out.println("Highscore: " + this.Highscore);}
 

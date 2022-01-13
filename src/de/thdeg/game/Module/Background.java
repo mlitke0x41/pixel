@@ -22,22 +22,27 @@ public class Background extends GameObject{
 
     }
 
+    //Getter
     public short[] getImage(){
         return this.image;
-    }
-
-    private void setImage(short[] image) {
-        this.image = image;
     }
 
     public Character getGamer(){
         return this.gamer;
     }
 
+
+    //Setter
+    private void setImage(short[] image) {
+        this.image = image;
+    }
+
     private void setGamer(Character gamer){
         this.gamer = gamer;
     }
 
+
+    //Platzierung der Spielfigur
     private void placeGamer() throws InterruptedException {
         image[1656] = (short) gamer.rgbColor[0];
         image[1657] = (short) gamer.rgbColor[1];
@@ -46,6 +51,8 @@ public class Background extends GameObject{
         InternalLedGameThread.showImage(image);
     }
 
+
+    //Barrier-Methoden
     public LinkedList<Barrier> getBarriers(){
         return this.barriers;
     }
@@ -54,6 +61,8 @@ public class Background extends GameObject{
         this.barriers = barriers;
     }
 
+
+    //Methoden zur Zeichnung des Spielfeldes
     public void setBackgroundColor(int a, int b, int c){
         for (int i=0; i<image.length; i+=3) {
             image[i] = (short)a;
@@ -72,9 +81,12 @@ public class Background extends GameObject{
         }
     }
 
+
+    //Implementierung einer Todesnachricht
     public void deathMessage(int score, int highscore, int lastHigh) {
         String[] options = {"Restart", "Leave"};
 
+        //Prüfung, ob Highscore neu ist oder nicht -> Bei true wird "NEW" ausgegeben
         if (score > lastHigh) {
             int result = JOptionPane.showOptionDialog(null,
                     "Score: " + score + "\n" +
@@ -102,13 +114,17 @@ public class Background extends GameObject{
         }
     }
 
+    //Hauptmethode, worüber das Spiel läuft
     public void newGame() throws InterruptedException {
         InternalLedGameThread.run();
         Score score = new Score();
         int lastHighscore = 0;
 
+        //Schleife läuft bis Anwender über Messagebox beendet
         while(true) {
             score.setStartTime();
+
+            //Erschaffung des Spielfeldes
             setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
             setBorder(0, 0, 0);
             Thread.sleep(1000);
@@ -120,11 +136,18 @@ public class Background extends GameObject{
             //Ansonsten gibt es eventuell ein Problem mit der Zeichnung der Barrier.
             gamer.move(image);
 
+            //Berechnung und Ausgabe des Scores
             score.setEndTime();
             score.printScore();
+
+            //Zur Prüfung, ob es sich um einen neuen Highscore handelt!
             lastHighscore = score.getHighscore();
+
+            //Speicherung und Ausgabe des Highscores
             score.saveHighscore(score.getPoints());
             score.printHighscores();
+
+            //Ausgabe der Todesnachricht mit Option zu Neustart/Beendigung
             deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);
         }
     }

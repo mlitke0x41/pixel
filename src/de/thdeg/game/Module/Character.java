@@ -21,6 +21,7 @@ public class Character extends GameFigure {
         return character;
     }
 
+    //Bewegung der Spielfigur durch Anwender, solange nicht die Border berührt wird
     public void move(short[] gamer) throws InterruptedException {
         while(!isHitten()){
             int thisKey = InternalLedGameThread.getKeyboard();
@@ -45,12 +46,13 @@ public class Character extends GameFigure {
         toStartPosition();
     }
 
+    //Charakter wird in Start-Position zurückversetzt, um neues Spiel zu starten
     private void toStartPosition(){
         this.xpos = 0;
         this.ypos = 0;
     }
 
-    //Vorerst Berücksichtigung der Umrandung
+    //Vorerst nur Berücksichtigung der Border
     private boolean isHitten(){
         int position = (ypos * 48 + xpos) * 3 + 1656;
         return position <= 141 || position >= 3312 || position % 144 == 0 || ((position - 141) % 144 == 0);

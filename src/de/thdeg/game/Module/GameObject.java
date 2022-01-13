@@ -20,6 +20,4 @@ public abstract class GameObject {
         this.rgbColor = rgbColor;
     }
 
-    //Print-Method
-
 }
