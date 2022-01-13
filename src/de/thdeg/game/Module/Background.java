@@ -72,24 +72,40 @@ public class Background extends GameObject{
         }
     }
 
-    public void deathMessage(){
-        String[] options = {"Restart","Leave"};
+    public void deathMessage(int score, int highscore, int lastHigh) {
+        String[] options = {"Restart", "Leave"};
 
-        int result = JOptionPane.showOptionDialog(null,
-                "Wanna play again?",
-                "YOU LOOSE!",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                1);
-
-        if (result == JOptionPane.NO_OPTION) System.exit(0);
+        if (score > lastHigh) {
+            int result = JOptionPane.showOptionDialog(null,
+                    "Score: " + score + "\n" +
+                            "NEW Highscore: " + highscore + "\n" +
+                            "Wanna play again?",
+                    "YOU LOOSE!",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    1);
+            if (result == JOptionPane.NO_OPTION) System.exit(0);
+        } else if (score <= highscore) {
+            int result = JOptionPane.showOptionDialog(null,
+                    "Score: " + score + "\n" +
+                            "Highscore: " + highscore + "\n" +
+                            "Wanna play again?",
+                    "YOU LOOSE!",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    1);
+            if (result == JOptionPane.NO_OPTION) System.exit(0);
+        }
     }
 
     public void newGame() throws InterruptedException {
         InternalLedGameThread.run();
         Score score = new Score();
+        int lastHighscore = 0;
 
         while(true) {
             score.setStartTime();
@@ -106,9 +122,10 @@ public class Background extends GameObject{
 
             score.setEndTime();
             score.printScore();
+            lastHighscore = score.getHighscore();
             score.saveHighscore(score.getPoints());
             score.printHighscores();
-            deathMessage();
+            deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);
         }
     }
 

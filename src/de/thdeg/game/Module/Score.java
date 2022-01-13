@@ -78,6 +78,8 @@ public class Score {
         }
     }
 
+    public int getHighscore(){return Highscore;}
+
     public void printHighscores(){System.out.println("Highscore: " + this.Highscore);}
 
 }
