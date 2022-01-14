@@ -131,8 +131,6 @@ public class Background extends GameObject{
             InternalLedGameThread.showImage(getImage());
             placeGamer();
             barriers.placeBarrier(image);
-
-            //Test zur Bewegung der Barrier
             barriers.moveBarrier(image);
 
             /*Bewegen der Barriere in Zeitintervall
@@ -150,7 +148,7 @@ public class Background extends GameObject{
             //Die move()-Methode muss eventuell noch freier gestaltet werden, dass die "Zeichnung" des Hintergrundes
             //in er Background-Klasse passiert und nicht in der Character-Klasse.
             //Ansonsten gibt es eventuell ein Problem mit der Zeichnung der Barrier.
-            while(!gamer.isHitten()) {
+            while(!gamer.isHitten()) {;
                 gamer.move(image);
             }
             gamer.toStartPosition();
