@@ -3,20 +3,20 @@ package de.thdeg.game.Module;
 
 public abstract class GameObject {
     //Instanzattribut
-    protected int[] rgbColor;
+    protected short[] rgbColor;
 
     //Constructor
-    GameObject(int[] rgbColor){
+    GameObject(short[] rgbColor){
         this.rgbColor = rgbColor;
     }
 
     //Getter
-    public int[] getRgbColor(){
-        return(rgbColor);
+    public short getRgbColor(int i){
+        return rgbColor[i];
     }
 
     //Setter
-    private void setColor(int[] rgbColor){
+    private void setColor(short[] rgbColor){
         this.rgbColor = rgbColor;
     }
 

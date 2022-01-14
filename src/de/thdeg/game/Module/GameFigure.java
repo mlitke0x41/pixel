@@ -6,7 +6,7 @@ public abstract class GameFigure extends GameObject {
     protected int ypos;
 
     //Konstruktor
-    protected GameFigure(int xpos, int ypos, int[] rgbColor){
+    protected GameFigure(int xpos, int ypos, short[] rgbColor){
         super(rgbColor);
         this.xpos = xpos;
         this.ypos = ypos;

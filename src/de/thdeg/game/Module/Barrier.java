@@ -1,22 +1,57 @@
 package de.thdeg.game.Module;
 
+import de.thdeg.game.runtime.InternalLedGameThread;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+
 public class Barrier extends GameFigure{
 
-    private int width;
+    ArrayList<Short> positionen = new ArrayList<>();
 
-    public Barrier( int xpos, int ypos, int width){
-        super(xpos, ypos, new int[]{0,255,0});
-        this.width = width;
+    public Barrier(){
+        super(1, 1, new short[]{255,0,0});
     }
 
-    public int getWidth(){
-        return width;
-    }
 
-    private void setWidth(int width){
-        if ( width < 2 ) {
-            width = 2;
+    public void placeBarrier(short[] barrier) throws InterruptedException {
+        for (int i=0; i<=135; i+=3) {
+
+
+            //Zufallszahl, um Lücken in Barrier zu generieren
+            Random random = new Random();
+            int value = random.nextInt(8 + 1) + 1;
+
+            if(value != 1) {
+                short position = (short) ((ypos * 48 + xpos) * 3 + i);
+                positionen.add(position);
+                barrier[position] = getRgbColor(0);
+                barrier[position] = getRgbColor(1);
+                barrier[position] = getRgbColor(2);
+            }
         }
-        this.width = width;
+        Thread.sleep(1);
+        InternalLedGameThread.showImage(barrier);
+    }
+
+
+    public void moveBarrier(short[] barrier) throws InterruptedException {
+
+        //Verschiebung der Barriere
+        for(int i=0; i<positionen.size(); i++) {
+            barrier[positionen.get(i)] = 255;
+            barrier[positionen.get(i)] = 255;
+            barrier[positionen.get(i)] = 255;
+
+            if(ypos != 22){
+                ypos++;
+            } else ypos = 1;
+
+            barrier[positionen.get(i)+(3*48)] = getRgbColor(0);
+            barrier[positionen.get(i)+(3*48)] = getRgbColor(1);
+            barrier[positionen.get(i)+(3*48)] = getRgbColor(2);
+            InternalLedGameThread.showImage(barrier);
+        }
     }
 }

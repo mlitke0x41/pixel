@@ -1,25 +1,23 @@
 package de.thdeg.game.Module;
 
 import de.thdeg.game.runtime.InternalLedGameThread;
-import java.util.LinkedList;
-import de.thdeg.game.Module.Score;
-
 import javax.swing.*;
+import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Background extends GameObject{
     //Instanzattribut
     private short[] image;
     private Character gamer;
-    private LinkedList<Barrier> barriers;
+    private Barrier barriers;
 
 
     //Konstruktor
     public Background() {
-        super(new int[]{255,255,255});
+        super(new short[]{255,255,255});
         this.setImage(new short[24*48*3]);
         this.setGamer(Character.getInstance());
-        this.setBarriers(new LinkedList<>());
-
     }
 
     //Getter
@@ -44,21 +42,21 @@ public class Background extends GameObject{
 
     //Platzierung der Spielfigur
     private void placeGamer() throws InterruptedException {
-        image[1656] = (short) gamer.rgbColor[0];
-        image[1657] = (short) gamer.rgbColor[1];
-        image[1658] = (short) gamer.rgbColor[2];
+        image[1656] = gamer.rgbColor[0];
+        image[1657] = gamer.rgbColor[1];
+        image[1658] = gamer.rgbColor[2];
         Thread.sleep(300);
         InternalLedGameThread.showImage(image);
     }
 
 
     //Barrier-Methoden
-    public LinkedList<Barrier> getBarriers(){
-        return this.barriers;
-    }
+    //public LinkedList<Barrier> getBarriers(){
+        //return this.barriers;
+    //}
 
-    private void setBarriers(LinkedList<Barrier> barriers){
-        this.barriers = barriers;
+    private void setBarriers(){
+        this.barriers = new Barrier();
     }
 
 
@@ -118,7 +116,9 @@ public class Background extends GameObject{
     public void newGame() throws InterruptedException {
         InternalLedGameThread.run();
         Score score = new Score();
-        int lastHighscore = 0;
+        int lastHighscore;
+        setBarriers();
+        Timer timer = new Timer();
 
         //Schleife läuft bis Anwender über Messagebox beendet
         while(true) {
@@ -130,11 +130,28 @@ public class Background extends GameObject{
             Thread.sleep(1000);
             InternalLedGameThread.showImage(getImage());
             placeGamer();
+            barriers.placeBarrier(image);
+
+            //Bewegen der Barriere in Zeitintervall
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+                        barriers.moveBarrier(image);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 2*1000, 2*1000);
 
             //Die move()-Methode muss eventuell noch freier gestaltet werden, dass die "Zeichnung" des Hintergrundes
             //in er Background-Klasse passiert und nicht in der Character-Klasse.
             //Ansonsten gibt es eventuell ein Problem mit der Zeichnung der Barrier.
-            gamer.move(image);
+            while(!gamer.isHitten()) {
+                gamer.move(image);
+            }
+            gamer.toStartPosition();
+
 
             //Berechnung und Ausgabe des Scores
             score.setEndTime();
