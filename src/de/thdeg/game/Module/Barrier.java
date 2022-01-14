@@ -38,20 +38,28 @@ public class Barrier extends GameFigure{
 
     public void moveBarrier(short[] barrier) throws InterruptedException {
 
-        //Verschiebung der Barriere
-        for(int i=0; i<positionen.size(); i++) {
-            barrier[positionen.get(i)] = 255;
-            barrier[positionen.get(i)] = 255;
-            barrier[positionen.get(i)] = 255;
+        for(int y=0; y<22; y++) {
 
-            if(ypos != 22){
-                ypos++;
-            } else ypos = 1;
+            Thread.sleep(500);
 
-            barrier[positionen.get(i)+(3*48)] = getRgbColor(0);
-            barrier[positionen.get(i)+(3*48)] = getRgbColor(1);
-            barrier[positionen.get(i)+(3*48)] = getRgbColor(2);
-            InternalLedGameThread.showImage(barrier);
+            //Verschiebung der Barriere
+            for (int i = 0; i < positionen.size(); i++) {
+                barrier[positionen.get(i)] = 255;
+                barrier[positionen.get(i)] = 255;
+                barrier[positionen.get(i)] = 255;
+
+
+                barrier[positionen.get(i) +(3 * 48)] = getRgbColor(0);
+                barrier[positionen.get(i) +(3 * 48)] = getRgbColor(1);
+                barrier[positionen.get(i) +(3 * 48)] = getRgbColor(2);
+
+                //Update der Positionen
+                short newPosition = (short) (positionen.get(i) +(3 * 48));
+                positionen.remove(i);
+                positionen.add(i,newPosition);
+
+                InternalLedGameThread.showImage(barrier);
+            }
         }
     }
 }
