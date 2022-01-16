@@ -10,7 +10,7 @@ public class Score implements Comparable<Score> {
     private String abbreviation;
     private Timestamp startTime;
     private Timestamp endTime;
-    private static final ArrayList<Score> highscores = new ArrayList<>();
+    private static ArrayList<Score> highscores = new ArrayList<>();
     private static int rundenzahl = 0;
     private static int highscore = 0;
 
