@@ -10,8 +10,7 @@ public class Score implements Comparable<Score> {
     private String abbreviation;
     private Timestamp startTime;
     private Timestamp endTime;
-    private static ArrayList<Score> highscores = new ArrayList<>();
-    private static final int MULTIPLICATION = 10;
+    private static final ArrayList<Score> highscores = new ArrayList<>();
     private static int rundenzahl = 0;
     private static int Highscore = 0;
 
@@ -43,17 +42,9 @@ public class Score implements Comparable<Score> {
         this.abbreviation = sb.toString();
     }
 
-    public Timestamp getStartTime(){
-        return this.startTime;
-    }
-
     protected void setStartTime(){
         this.startTime = new Timestamp(System.currentTimeMillis());
         rundenzahl++;
-    }
-
-    public Timestamp getEndTime(){
-        return this.endTime;
     }
 
     protected void setEndTime(){
@@ -68,7 +59,6 @@ public class Score implements Comparable<Score> {
 
     @Override
     public int compareTo(Score score){
-
         if ( this.getPoints() > score.getPoints()) {
             return -1;
         } if ( this.getPoints() < score.getPoints()) {

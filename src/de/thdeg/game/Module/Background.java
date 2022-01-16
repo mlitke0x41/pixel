@@ -2,7 +2,7 @@ package de.thdeg.game.Module;
 
 import de.thdeg.game.runtime.InternalLedGameThread;
 import javax.swing.*;
-import java.util.LinkedList;
+
 
 public class Background extends GameObject{
     //Instanzattribut
@@ -24,10 +24,6 @@ public class Background extends GameObject{
     //Getter
     public short[] getImage(){
         return this.image;
-    }
-
-    public Character getGamer(){
-        return this.gamer;
     }
 
 
@@ -52,10 +48,6 @@ public class Background extends GameObject{
 
 
     //Barrier-Methoden
-    //public LinkedList<Barrier> getBarriers(){
-        //return this.barriers;
-    //}
-
     private void setBarriers(){
         this.barriers = new Barrier();
     }
@@ -118,7 +110,7 @@ public class Background extends GameObject{
         InternalLedGameThread.run();
         Score score = new Score();
         int lastHighscore;
-        int thiskey = -1;
+        int thiskey;
         setBarriers();
         score.setStartTime();
         setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
@@ -146,7 +138,6 @@ public class Background extends GameObject{
                 setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
                 setBorder(0, 0, 0);
                 barriers.placeBarrier(image);
-                Thread.sleep(50);
             }
 
 
@@ -169,28 +160,8 @@ public class Background extends GameObject{
             } else timer++;
 
 
-            /*Bewegen der Barriere in Zeitintervall
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    try {
-                        barriers.moveBarrier(image);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, 2*1000, 2*1000);*/
-
-            //Die move()-Methode muss eventuell noch freier gestaltet werden, dass die "Zeichnung" des Hintergrundes
-            //in er Background-Klasse passiert und nicht in der Character-Klasse.
-            //Ansonsten gibt es eventuell ein Problem mit der Zeichnung der Barrier.
             thiskey = InternalLedGameThread.getKeyboard();
 
-
-
-            //while(!gamer.isHitten()) {;
-            //    gamer.move(image);
-            //}
 
             if ( gamer.isHitten(barriers.getRgbColor(), image, thiskey)){
                 gamer.toStartPosition();
@@ -209,7 +180,6 @@ public class Background extends GameObject{
 
                 setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
                 setBorder(0, 0, 0);
-                Thread.sleep(200);
 
                 //Ausgabe der Todesnachricht mit Option zu Neustart/Beendigung
                 deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);

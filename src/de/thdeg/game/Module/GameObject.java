@@ -19,5 +19,4 @@ public abstract class GameObject {
     private void setColor(short[] rgbColor){
         this.rgbColor = rgbColor;
     }
-
 }
