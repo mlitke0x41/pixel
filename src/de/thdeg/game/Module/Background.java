@@ -9,6 +9,9 @@ public class Background extends GameObject{
     private short[] image;
     private Character gamer;
     private Barrier barriers;
+    private int timer = 0;
+    private int speed = 17;
+    private int acceleration = 0;
 
 
     //Konstruktor
@@ -123,6 +126,7 @@ public class Background extends GameObject{
         Thread.sleep(200);
         placeGamer();
         barriers.placeBarrier(image);
+
         //Schleife läuft bis Anwender über Messagebox beendet
         while(true) {
 
@@ -139,16 +143,31 @@ public class Background extends GameObject{
 
             if ( barriers.getEndPos() == 21){
                 setBarriers();
+                setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
+                setBorder(0, 0, 0);
                 barriers.placeBarrier(image);
+                Thread.sleep(50);
             }
-            //Erschaffung des Spielfeldes
-            setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
-            setBorder(0, 0, 0);
-            Thread.sleep(200);
+
 
             InternalLedGameThread.showImage(getImage());
 
-            barriers.moveBarrier(image);
+            //Geschwindigkit und Beschleunigung der Barriere
+            if (timer > speed) {
+                if (acceleration==20 && speed>=8) {
+                    speed--;
+                    acceleration = 0;
+                }
+
+                barriers.moveBarrier(image);
+                timer = 0;
+
+                if (speed >= 8) {
+                    acceleration++;
+                }
+
+            } else timer++;
+
 
             /*Bewegen der Barriere in Zeitintervall
             timer.scheduleAtFixedRate(new TimerTask() {
@@ -188,10 +207,17 @@ public class Background extends GameObject{
                 score.saveHighscore(score.getPoints());
                 score.printHighscores();
 
+                setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
+                setBorder(0, 0, 0);
+                Thread.sleep(200);
+
                 //Ausgabe der Todesnachricht mit Option zu Neustart/Beendigung
                 deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);
                 barriers = null;
                 score = null;
+                speed = 17;
+                acceleration = 0;
+                timer = 0;
             }else {
                 gamer.move(image, thiskey);
             }
