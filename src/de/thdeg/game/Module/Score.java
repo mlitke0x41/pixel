@@ -2,17 +2,18 @@ package de.thdeg.game.Module;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
-public class Score {
+public class Score implements Comparable<Score> {
 
     private String abbreviation;
     private Timestamp startTime;
     private Timestamp endTime;
     private static ArrayList<Score> highscores = new ArrayList<>();
     private static final int MULTIPLICATION = 10;
-    private int Rundenzahl = 0;
-    private int Highscore = 0;
+    private static int rundenzahl = 0;
+    private static int Highscore = 0;
 
     public Score (){
         this.setAbbreviation();
@@ -48,7 +49,7 @@ public class Score {
 
     protected void setStartTime(){
         this.startTime = new Timestamp(System.currentTimeMillis());
-        Rundenzahl++;
+        rundenzahl++;
     }
 
     public Timestamp getEndTime(){
@@ -59,18 +60,27 @@ public class Score {
         this.endTime = new Timestamp(System.currentTimeMillis());
     }
 
-    public void stopTime(){
-        this.setEndTime();
-    }
-
     public int getPoints(){
         return (int) ((this.endTime.getTime() - this.startTime.getTime()) / 1000);
     }
 
     public int getHighscore(){return Highscore;}
 
+    @Override
+    public int compareTo(Score score){
+
+        if ( this.getPoints() > score.getPoints()) {
+            return -1;
+        } if ( this.getPoints() < score.getPoints()) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
     public void printScore(){
-        System.out.println("\nPunkte der Runde " + Rundenzahl + ": \033[0;32m" + getPoints() + "\033[0m");
+        System.out.println("\nPunkte der Runde " + rundenzahl + "[" + this.getAbbreviation() + "]: \033[0;32m" + getPoints() + "\033[0m");
     }
 
     public void saveHighscore(int score){
@@ -78,9 +88,26 @@ public class Score {
             Highscore = score;
             System.out.println("\033[0;31mYou made a new Highscore!\033[0m");
         }
+        highscores.add(this);
     }
 
+    public void printHighscores(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Highscore: \n\n");
 
-    public void printHighscores(){System.out.println("Highscore: " + "\033[0;31m" + this.Highscore + "\033[0m");}
+        Collections.sort(highscores);
+
+        for (int i = 0; i < highscores.size(); i++) {
+
+            if (i > 5) break;
+            if (i == 0){
+                sb.append("\033[0;31m").append(highscores.get(i).getAbbreviation()).append("  ").append(highscores.get(i).getPoints()).append("\033[0m\n");
+            } else {
+                sb.append(highscores.get(i).getAbbreviation()).append("  ").append(highscores.get(i).getPoints()).append("\n");
+            }
+        }
+        System.out.println(sb);
+
+    }
 
 }

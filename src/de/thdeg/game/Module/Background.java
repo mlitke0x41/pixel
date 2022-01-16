@@ -3,8 +3,6 @@ package de.thdeg.game.Module;
 import de.thdeg.game.runtime.InternalLedGameThread;
 import javax.swing.*;
 import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Background extends GameObject{
     //Instanzattribut
@@ -117,20 +115,39 @@ public class Background extends GameObject{
         InternalLedGameThread.run();
         Score score = new Score();
         int lastHighscore;
+        int thiskey = -1;
         setBarriers();
-        Timer timer = new Timer();
-
+        score.setStartTime();
+        setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
+        setBorder(0, 0, 0);
+        Thread.sleep(200);
+        placeGamer();
+        barriers.placeBarrier(image);
         //Schleife läuft bis Anwender über Messagebox beendet
         while(true) {
-            score.setStartTime();
 
+            if ( score == null){
+                score = new Score();
+                score.setStartTime();
+            }
+
+            if ( barriers == null){
+                setBarriers();
+                placeGamer();
+                barriers.placeBarrier(image);
+            }
+
+            if ( barriers.getEndPos() == 21){
+                setBarriers();
+                barriers.placeBarrier(image);
+            }
             //Erschaffung des Spielfeldes
             setBackgroundColor(rgbColor[0], rgbColor[1], rgbColor[2]);
             setBorder(0, 0, 0);
-            Thread.sleep(1000);
+            Thread.sleep(200);
+
             InternalLedGameThread.showImage(getImage());
-            placeGamer();
-            barriers.placeBarrier(image);
+
             barriers.moveBarrier(image);
 
             /*Bewegen der Barriere in Zeitintervall
@@ -148,25 +165,37 @@ public class Background extends GameObject{
             //Die move()-Methode muss eventuell noch freier gestaltet werden, dass die "Zeichnung" des Hintergrundes
             //in er Background-Klasse passiert und nicht in der Character-Klasse.
             //Ansonsten gibt es eventuell ein Problem mit der Zeichnung der Barrier.
-            while(!gamer.isHitten()) {;
-                gamer.move(image);
+            thiskey = InternalLedGameThread.getKeyboard();
+
+
+
+            //while(!gamer.isHitten()) {;
+            //    gamer.move(image);
+            //}
+
+            if ( gamer.isHitten(barriers.getRgbColor(), image, thiskey)){
+                gamer.toStartPosition();
+
+
+                //Berechnung und Ausgabe des Scores
+                score.setEndTime();
+                score.printScore();
+
+                //Zur Prüfung, ob es sich um einen neuen Highscore handelt!
+                lastHighscore = score.getHighscore();
+
+                //Speicherung und Ausgabe des Highscores
+                score.saveHighscore(score.getPoints());
+                score.printHighscores();
+
+                //Ausgabe der Todesnachricht mit Option zu Neustart/Beendigung
+                deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);
+                barriers = null;
+                score = null;
+            }else {
+                gamer.move(image, thiskey);
             }
-            gamer.toStartPosition();
 
-
-            //Berechnung und Ausgabe des Scores
-            score.setEndTime();
-            score.printScore();
-
-            //Zur Prüfung, ob es sich um einen neuen Highscore handelt!
-            lastHighscore = score.getHighscore();
-
-            //Speicherung und Ausgabe des Highscores
-            score.saveHighscore(score.getPoints());
-            score.printHighscores();
-
-            //Ausgabe der Todesnachricht mit Option zu Neustart/Beendigung
-            deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);
         }
     }
 

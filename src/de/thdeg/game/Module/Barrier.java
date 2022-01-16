@@ -8,12 +8,25 @@ import java.util.Random;
 
 public class Barrier extends GameFigure{
 
-    ArrayList<Short> positionen = new ArrayList<>();
+    private ArrayList<Short> positionen;
+    private int endPos = 0;
 
     public Barrier(){
         super(1, 1, new short[]{255,0,0});
+        this.setPositionen(new ArrayList<>());
     }
 
+    public ArrayList<Short> getPositionen(){
+        return this.positionen;
+    }
+
+    private void setPositionen(ArrayList<Short> positionen){
+        this.positionen = positionen;
+    }
+
+    public int getEndPos(){
+        return endPos;
+    }
 
     public void placeBarrier(short[] barrier) throws InterruptedException {
         for (int i=0; i<=135; i+=3) {
@@ -26,40 +39,49 @@ public class Barrier extends GameFigure{
             if(value != 1) {
                 short position = (short) ((ypos * 48 + xpos) * 3 + i);
                 positionen.add(position);
-                barrier[position] = getRgbColor(0);
-                barrier[position] = getRgbColor(1);
-                barrier[position] = getRgbColor(2);
+                barrier[position + 0] = getRgbColor()[0];
+                barrier[position + 1] = getRgbColor()[1];
+                barrier[position + 2] = getRgbColor()[2];
             }
         }
-        Thread.sleep(1);
+        Thread.sleep(50);
         InternalLedGameThread.showImage(barrier);
     }
 
 
     public void moveBarrier(short[] barrier) throws InterruptedException {
 
-        for(int y=0; y<22; y++) {
+        //for(int y=0; y<22; y++) {
 
-            Thread.sleep(500);
+        if( endPos < 21) {
 
             //Verschiebung der Barriere
             for (int i = 0; i < positionen.size(); i++) {
-                barrier[positionen.get(i)] = 255;
-                barrier[positionen.get(i)] = 255;
-                barrier[positionen.get(i)] = 255;
+                barrier[positionen.get(i) + 0] = 255;
+                barrier[positionen.get(i) + 1] = 255;
+                barrier[positionen.get(i) + 2] = 255;
 
 
-                barrier[positionen.get(i) +(3 * 48)] = getRgbColor(0);
-                barrier[positionen.get(i) +(3 * 48)] = getRgbColor(1);
-                barrier[positionen.get(i) +(3 * 48)] = getRgbColor(2);
+                barrier[positionen.get(i) +(3 * 48) +0] = getRgbColor()[0];
+                barrier[positionen.get(i) +(3 * 48) +1] = getRgbColor()[1];
+                barrier[positionen.get(i) +(3 * 48) +2] = getRgbColor()[2];
+
+                /*if ( y == 21) {
+                    barrier[positionen.get(i) + 0] = 255;
+                    barrier[positionen.get(i) + 1] = 255;
+                    barrier[positionen.get(i) + 2] = 255;
+                }*/
 
                 //Update der Positionen
                 short newPosition = (short) (positionen.get(i) +(3 * 48));
                 positionen.remove(i);
                 positionen.add(i,newPosition);
 
-                InternalLedGameThread.showImage(barrier);
+
             }
+        Thread.sleep(200);
+        InternalLedGameThread.showImage(barrier);
         }
+        endPos++;
     }
 }

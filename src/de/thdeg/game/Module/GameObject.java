@@ -11,8 +11,8 @@ public abstract class GameObject {
     }
 
     //Getter
-    public short getRgbColor(int i){
-        return rgbColor[i];
+    public short[] getRgbColor(){
+        return rgbColor;
     }
 
     //Setter
