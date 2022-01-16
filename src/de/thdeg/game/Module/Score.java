@@ -12,7 +12,7 @@ public class Score implements Comparable<Score> {
     private Timestamp endTime;
     private static final ArrayList<Score> highscores = new ArrayList<>();
     private static int rundenzahl = 0;
-    private static int Highscore = 0;
+    private static int highscore = 0;
 
     public Score (){
         this.setAbbreviation();
@@ -55,7 +55,7 @@ public class Score implements Comparable<Score> {
         return (int) ((this.endTime.getTime() - this.startTime.getTime()) / 1000);
     }
 
-    public int getHighscore(){return Highscore;}
+    public int getHighscore(){return highscore;}
 
     @Override
     public int compareTo(Score score){
@@ -74,13 +74,14 @@ public class Score implements Comparable<Score> {
     }
 
     public void saveHighscore(int score){
-        if (score > Highscore) {
-            Highscore = score;
+        if (score > highscore) {
+            highscore = score;
             System.out.println("\033[0;31mYou made a new Highscore!\033[0m");
         }
         highscores.add(this);
     }
 
+    // Gibt die letzen 5 besten Scores aller Runden aus
     public void printHighscores(){
         StringBuilder sb = new StringBuilder();
         sb.append("Highscore: \n\n");

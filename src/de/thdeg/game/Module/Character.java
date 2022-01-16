@@ -54,7 +54,7 @@ public class Character extends GameFigure {
         this.ypos = 0;
     }
 
-    //Vorerst nur Berücksichtigung der Border
+    //Berücksichtigung der Border und der Barrier
     public boolean isHitten(short[] rgbColor, short[] image, int key){
 
         int bufferYpos = this.ypos;
