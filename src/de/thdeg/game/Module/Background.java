@@ -145,7 +145,7 @@ public class Background extends GameObject{
 
             //Geschwindigkit und Beschleunigung der Barriere
             if (timer > speed) {
-                if (acceleration==20 && speed>=8) {
+                if (acceleration==20 && speed>=7) {
                     speed--;
                     acceleration = 0;
                 }
@@ -153,7 +153,7 @@ public class Background extends GameObject{
                 barriers.moveBarrier(image);
                 timer = 0;
 
-                if (speed >= 8) {
+                if (speed >= 7) {
                     acceleration++;
                 }
 
