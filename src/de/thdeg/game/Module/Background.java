@@ -106,7 +106,7 @@ public class Background extends GameObject{
         }
     }*/
 
-    //Zeigt auf Spielfeld "Loose" an
+    //Zeigt auf Spielfeld "Lost" an
     public void showLooseMessage() {
         //Spielfeld wird zurückgesetzt
         setBackgroundColor(rgbColor[0],rgbColor[1],rgbColor[2]);
