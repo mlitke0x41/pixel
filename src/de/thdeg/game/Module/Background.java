@@ -73,6 +73,7 @@ public class Background extends GameObject{
     }
 
 
+    /*
     //Implementierung einer Todesnachricht
     public void deathMessage(int score, int highscore, int lastHigh) {
         String[] options = {"Restart", "Leave"};
@@ -103,6 +104,123 @@ public class Background extends GameObject{
                     1);
             if (result == JOptionPane.NO_OPTION) System.exit(0);
         }
+    }*/
+
+    //Zeigt auf Spielfeld "Loose" an
+    public void showLooseMessage() {
+        //Spielfeld wird zurückgesetzt
+        setBackgroundColor(rgbColor[0],rgbColor[1],rgbColor[2]);
+        setBorder(0,0,0);
+        InternalLedGameThread.showImage(image);
+
+        //L
+        for (int i=0; i<=7; i++) {
+            image[1176 + (i*48*3)] = 255;
+            image[1177 + (i*48*3)] = 0;
+            image[1178 + (i*48*3)] = 0;
+
+            if(i==7){
+                for (int j=0; j<=7; j++) {
+                    image[1176 + (i * 48 * 3) + (j*3)] = 255;
+                    image[1177 + (i * 48 * 3) + (j*3)] = 0;
+                    image[1178 + (i * 48 * 3) + (j*3)] = 0;
+                }
+            }
+        }
+
+        //O wird eingeblendet
+        for (int i=0; i<=7; i++) {
+            image[1200 + (i*48*3)] = 255;
+            image[1201 + (i*48*3)] = 0;
+            image[1202 + (i*48*3)] = 0;
+
+            if(i==0){
+                for (int j=0; j<=7; j++) {
+                    image[1200 + (i * 48 * 3) + (j * 3)] = 255;
+                    image[1201 + (i * 48 * 3) + (j * 3)] = 0;
+                    image[1202 + (i * 48 * 3) + (j * 3)] = 0;
+                }
+            }
+
+            if(i==7){
+                for (int j=0; j<=7; j++) {
+                    image[1200 + (i * 48 * 3) + (j*3)] = 255;
+                    image[1201 + (i * 48 * 3) + (j*3)] = 0;
+                    image[1202 + (i * 48 * 3) + (j*3)] = 0;
+
+                    if(j==7){
+                        for(int o=0; o<=7; o++) {
+                            image[1200 + (i * 48 * 3) + (j*3) - (o*48*3)] = 255;
+                            image[1201 + (i * 48 * 3) + (j*3) - (o*48*3)] = 0;
+                            image[1202 + (i * 48 * 3) + (j*3) - (o*48*3)] = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        //S wird eingeblendet
+        for (int i=0; i<=4; i++) {
+            image[1224 + (i*48*3)] = 255;
+            image[1225 + (i*48*3)] = 0;
+            image[1226 + (i*48*3)] = 0;
+
+            if(i==0){
+                for (int j=0; j<=7; j++) {
+                    image[1224 + (i * 48 * 3) + (j * 3)] = 255;
+                    image[1225 + (i * 48 * 3) + (j * 3)] = 0;
+                    image[1226 + (i * 48 * 3) + (j * 3)] = 0;
+                }
+            }
+
+            if(i==4){
+                for (int j=0; j<=7; j++) {
+                    image[1224 + (i * 48 * 3) + (j*3)] = 255;
+                    image[1225 + (i * 48 * 3) + (j*3)] = 0;
+                    image[1226 + (i * 48 * 3) + (j*3)] = 0;
+
+                    if(j==7){
+                        for(int o=0; o<=3; o++) {
+                            image[1224 + (i * 48 * 3) + (j*3) + (o*48*3)] = 255;
+                            image[1225 + (i * 48 * 3) + (j*3) + (o*48*3)] = 0;
+                            image[1226 + (i * 48 * 3) + (j*3) + (o*48*3)] = 0;
+
+                            if(o==3){
+                                for (int l=0; l<=7; l++) {
+                                    image[1224 + (i * 48 * 3) + (j * 3) + (o * 48 * 3) - (l * 3)] = 255;
+                                    image[1225 + (i * 48 * 3) + (j * 3) + (o * 48 * 3) - (l * 3)] = 0;
+                                    image[1226 + (i * 48 * 3) + (j * 3) + (o * 48 * 3) - (l * 3)] = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //T wird eingeblendet
+        for (int j=0; j<=7; j++) {
+            image[1248 + (j * 3)] = 255;
+            image[1249 + (j * 3)] = 0;
+            image[1250 + (j * 3)] = 0;
+
+            if(j==3) {
+                for (int i=0; i<=7; i++) {
+                    image[1248 + (j * 3) + (i * 48 * 3)] = 255;
+                    image[1249 + (j * 3) + (i * 48 * 3)] = 0;
+                    image[1250 + (j * 3) + (i * 48 * 3)] = 0;
+                }
+            }
+
+            if(j==4) {
+                for (int i=0; i<=7; i++) {
+                    image[1248 + (j * 3) + (i * 48 * 3)] = 255;
+                    image[1249 + (j * 3) + (i * 48 * 3)] = 0;
+                    image[1250 + (j * 3) + (i * 48 * 3)] = 0;
+                }
+            }
+        }
+        InternalLedGameThread.showImage(image);
     }
 
     //Hauptmethode, worüber das Spiel läuft
@@ -182,12 +300,16 @@ public class Background extends GameObject{
                 setBorder(0, 0, 0);
 
                 //Ausgabe der Todesnachricht mit Option zu Neustart/Beendigung
-                deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);
+                //deathMessage(score.getPoints(), score.getHighscore(), lastHighscore);
                 barriers = null;
                 score = null;
                 speed = 17;
                 acceleration = 0;
                 timer = 0;
+                showLooseMessage();
+                Thread.sleep(5000);
+                setBackgroundColor(rgbColor[0],rgbColor[1],rgbColor[2]);
+                setBorder(0,0,0);
             }else {
                 gamer.move(image, thiskey);
             }
